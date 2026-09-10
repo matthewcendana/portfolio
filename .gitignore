@@ -1,3 +1,14 @@
+# Node / Vite / Vercel
+node_modules/
+dist/
+.vercel/
+.env
+.env.*
+!.env.example
+npm-debug.log*
+.DS_Store
+*.tsbuildinfo
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[codz]
@@ -216,3 +227,6 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# Claude
+.claude/

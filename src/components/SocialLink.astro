@@ -1,0 +1,59 @@
+---
+// Icon-only square link tile. External links open in a new tab; mailto links
+// (external=false) never do.
+interface Props {
+  href: string;
+  label: string;
+  external?: boolean;
+}
+
+const { href, label, external = true } = Astro.props;
+---
+
+<a
+  class="social-tile"
+  href={href}
+  aria-label={label}
+  title={label}
+  target={external ? '_blank' : undefined}
+  rel={external ? 'noopener noreferrer' : undefined}
+>
+  <slot />
+</a>
+
+<style>
+  .social-tile {
+    width: 120px;
+    height: 120px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--surface-card);
+    border-radius: var(--radius-xl);
+    color: var(--text-primary);
+    transition: background-color var(--duration-base) ease, transform var(--duration-base) ease;
+  }
+
+  .social-tile:hover {
+    background-color: var(--surface-card-hover);
+    transform: translateY(-4px);
+  }
+
+  .social-tile:focus-visible {
+    outline: 2px solid var(--text-primary);
+    outline-offset: 2px;
+  }
+
+  .social-tile :global(svg) {
+    width: 48px;
+    height: 48px;
+  }
+
+  @media (max-width: 640px) {
+    .social-tile {
+      width: 88px;
+      height: 88px;
+    }
+  }
+</style>

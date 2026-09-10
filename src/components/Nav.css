@@ -1,0 +1,255 @@
+/* All sizing here is fixed px (never rem/em/vw/%-of-font): the nav must
+   occupy identical pixel dimensions regardless of the browser's default
+   font-size preference. Browser zoom is exempt — it scales everything by
+   design and isn't fought here. */
+
+.site-nav {
+  width: 100%;
+  height: var(--nav-height);
+  background-color: var(--surface-nav);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.site-nav__inner {
+  height: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: 0 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+@media (min-width: 1024px) {
+  .site-nav__inner {
+    padding: 0 48px;
+  }
+}
+
+.site-nav__brand {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--text-on-nav-active);
+  text-decoration: none;
+  flex-shrink: 0;
+  min-width: 0;
+}
+
+.site-nav__logo {
+  width: 56px;
+  height: 56px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-faint);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  transition: opacity var(--duration-base) ease;
+}
+
+.site-nav__brand:hover .site-nav__logo {
+  opacity: 0.85;
+}
+
+.site-nav__wordmark {
+  font-size: 24px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  transition: color var(--duration-base) ease;
+}
+
+@media (min-width: 1024px) {
+  .site-nav__wordmark {
+    font-size: 26px;
+  }
+}
+
+.site-nav__brand:hover .site-nav__wordmark {
+  color: var(--accent-violet);
+}
+
+.site-nav__right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-shrink: 0;
+}
+
+.site-nav__links {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.site-nav__pill {
+  position: relative;
+  color: var(--text-on-nav);
+  text-decoration: none;
+  border-radius: var(--radius-full);
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  border: 1px solid transparent;
+}
+
+@media (min-width: 1024px) {
+  .site-nav__pill {
+    font-size: 20px;
+  }
+}
+
+.site-nav__pill:hover {
+  color: var(--text-on-nav-active);
+  background-color: var(--surface-pill-active);
+  border-color: var(--border-subtle);
+  transition: background-color var(--duration-micro) ease, border-color var(--duration-micro) ease,
+    color var(--duration-micro) ease;
+}
+
+.site-nav__pill-bg {
+  position: absolute;
+  inset: 0;
+  background-color: var(--surface-pill-active);
+  border: 1px solid var(--border-faint);
+  border-radius: var(--radius-full);
+  z-index: 0;
+}
+
+.site-nav__pill:has(.site-nav__pill-bg):hover {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.site-nav__pill-label {
+  position: relative;
+  z-index: 1;
+  color: inherit;
+}
+
+.site-nav__pill:has(.site-nav__pill-bg) .site-nav__pill-label {
+  color: var(--text-on-nav-active);
+}
+
+.site-nav__divider {
+  width: 1px;
+  height: 24px;
+  background: var(--border-nav-divider);
+  flex-shrink: 0;
+}
+
+.site-nav__socials {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.site-nav__social-link {
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary-70);
+  border-radius: var(--radius-full);
+  border: 1px solid transparent;
+  transition: color var(--duration-micro) ease, background-color var(--duration-micro) ease,
+    border-color var(--duration-micro) ease;
+}
+
+.site-nav__social-link svg {
+  width: 24px;
+  height: 24px;
+}
+
+.site-nav__social-link:hover {
+  color: var(--text-on-nav-active);
+  background-color: var(--surface-pill-active);
+  border-color: var(--border-subtle);
+}
+
+.site-nav__hamburger {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  color: var(--text-on-nav-active);
+  cursor: pointer;
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.site-nav__hamburger:hover {
+  background-color: var(--surface-pill-active);
+}
+
+.site-nav__mobile-overlay {
+  position: fixed;
+  inset: var(--nav-height) 0 0 0;
+  z-index: 90;
+  background: var(--surface-overlay-scrim);
+  backdrop-filter: blur(8px);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 12vh;
+}
+
+.site-nav__mobile-links {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.site-nav__mobile-link {
+  display: block;
+  color: var(--text-primary);
+  text-decoration: none;
+  font-size: 32px;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  text-align: center;
+}
+
+.site-nav__mobile-link:hover {
+  background-color: var(--surface-translucent-strong);
+}
+
+.site-nav__mobile-link.is-active {
+  color: var(--accent-violet);
+}
+
+/* Matches the site's existing mobile/tablet breakpoint (see
+   .page-section in global.css) rather than the old 767px cutoff: the
+   wordmark + full link row + divider + two social icons no longer fit
+   together below ~900px now that the header carries more content. */
+@media (max-width: 900px) {
+  .site-nav__right {
+    display: none;
+  }
+
+  .site-nav__hamburger {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .site-nav__pill:hover,
+  .site-nav__social-link:hover,
+  .site-nav__hamburger:hover {
+    transition: none;
+  }
+}

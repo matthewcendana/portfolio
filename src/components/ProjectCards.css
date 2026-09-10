@@ -1,0 +1,131 @@
+.project-cards {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.project-card {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  background-color: var(--surface-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--border-subtle);
+  padding: 28px;
+  transition: border-color var(--duration-base) ease;
+}
+
+.project-card:hover {
+  border-color: var(--border-default);
+}
+
+.project-card__text {
+  flex: 1 1 55%;
+  min-width: 0;
+}
+
+.project-card__title {
+  margin: 0 0 12px;
+  font-size: clamp(19px, 2.2vw, var(--text-heading-sm));
+  font-weight: 600;
+}
+
+.project-card__description {
+  margin: 0 0 20px;
+  font-size: var(--text-body-md);
+  line-height: 1.6;
+  color: var(--text-primary-85);
+}
+
+.project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.project-card__tag {
+  font-size: var(--text-mono-sm);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--surface-pill);
+  color: var(--text-primary-85);
+  border: 1px solid var(--border-subtle);
+}
+
+.project-card__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.project-card__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border-strong);
+  transition: text-decoration-color var(--duration-base) ease;
+}
+
+.project-card__link:hover {
+  text-decoration-color: var(--text-primary);
+}
+
+.project-card__image {
+  position: relative;
+  display: block;
+  flex: 1 1 45%;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  background: var(--surface-project-fallback);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.project-card__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.project-card__fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: clamp(28px, 6vw, 56px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-primary-40);
+  background: var(--surface-project-fallback);
+}
+
+@media (max-width: 768px) {
+  .project-card {
+    flex-direction: column-reverse;
+    align-items: stretch;
+    padding: 20px;
+    gap: 20px;
+  }
+
+  .project-card__text {
+    flex: none;
+  }
+
+  .project-card__image {
+    flex: none;
+    width: 100%;
+  }
+}

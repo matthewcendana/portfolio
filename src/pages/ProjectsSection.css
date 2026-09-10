@@ -1,0 +1,11 @@
+/* Layout (width/max-width/margin/padding) lives on the shared
+   .page-section class in global.css — this file only holds Projects' own
+   rules. */
+
+.projects__heading {
+  font-size: clamp(48px, 7vw, var(--text-display));
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+  margin: 0 0 48px;
+}

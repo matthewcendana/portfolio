@@ -1,0 +1,22 @@
+.sign-off {
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--signoff-padding-y) var(--section-padding-x);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sign-off__message {
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 600;
+  color: var(--text-primary-85);
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .sign-off {
+    padding: var(--signoff-padding-y-mobile) var(--section-padding-x-mobile);
+  }
+}

@@ -1,0 +1,184 @@
+/* Layout (width/max-width/margin/padding) lives on the shared
+   .page-section class in global.css — this file only holds About Me's own
+   rules. */
+
+.about__hero {
+  display: flex;
+  flex-wrap: wrap;
+  /* flex-start, not center: the intro column's height is no longer fixed
+     now that the Resume panel inside it can grow by ~800px when opened.
+     Centering would re-balance the whole row around the new midpoint,
+     visibly shifting the heading and photo upward as the panel opens. */
+  align-items: flex-start;
+  gap: 28px;
+}
+
+.about__intro {
+  /* Not flex-start-on-purpose-centered: the group used to be centered as a
+     whole, which pushed the text column's left edge in from the section's
+     own padding, out of step with every other section's flush-left
+     content (Fun Facts, Projects). Left-aligned here instead, so About
+     Me's margin visually matches the rest of the page. */
+  flex: 1 1 480px;
+  max-width: 68ch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+/* Overrides .about__intro's flex-start (shrink-to-fit) sizing just for the
+   Resume block: everything else in this column is naturally narrower than
+   its container (text, tags, the button itself), but the disclosure panel
+   below the button needs the *column's* full width to compute its own
+   ~620px-capped preview size against — without this, its `width: 100%`
+   would resolve against the trigger button's own shrink-wrapped width
+   instead (a classic flex shrink-to-fit + percentage-width-child trap). */
+.about__resume-wrap {
+  align-self: stretch;
+  width: 100%;
+}
+
+.about__heading {
+  font-size: clamp(48px, 7vw, var(--text-display));
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+  margin: 0 0 32px;
+}
+
+.about__bio {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.about__bio p {
+  margin: 0;
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text-primary-95);
+}
+
+.about__contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 36px;
+}
+
+.about__contact-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  max-width: 100%;
+  min-width: 0;
+  font-size: var(--text-body-md);
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border-strong);
+  transition: text-decoration-color var(--duration-base) ease;
+}
+
+.about__contact-link span {
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+.about__contact-link:hover {
+  text-decoration-color: var(--text-primary);
+}
+
+.about__contact-link svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+.about__toolbox {
+  margin-bottom: 36px;
+}
+
+.about__toolbox-heading {
+  font-size: var(--text-body-md);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-primary-70);
+  margin: 0 0 10px;
+}
+
+.about__toolbox-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.about__toolbox-tag {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-sm);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  background: var(--surface-pill);
+  color: var(--text-primary-85);
+  border: 1px solid var(--border-subtle);
+}
+
+.about__visuals {
+  /* Sized to its content (the fixed-frame photo), not stretched to fill —
+     otherwise the frame ends up centered in a column far wider than
+     itself, reading as pushed off toward the page's right edge. Centered
+     both ways within that snug column, and — via align-items: center on
+     .about__hero above — vertically centered against the full height of
+     the text column beside it. */
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about__photo {
+  position: relative;
+  width: 420px;
+  height: 460px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border-subtle);
+  background: var(--surface-photo);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.about__photo-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.about__photo-label {
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--text-primary-40);
+  text-align: center;
+  padding: 0 12px;
+}
+
+@media (max-width: 900px) {
+  /* Deliberately NOT centered here (unlike the old layout): Fun Facts
+     never centers its content at any width, so About Me staying
+     left-aligned is what keeps the two sections' left margins matching
+     all the way down to mobile. */
+  .about__photo {
+    width: min(420px, 60vw);
+    height: auto;
+    aspect-ratio: 420 / 460;
+  }
+}

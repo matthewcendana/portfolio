@@ -1,0 +1,90 @@
+/* Layout (width/max-width/margin/padding) lives on the shared
+   .page-section class in global.css — this file only holds Fun Facts' own
+   rules. */
+
+.fun-facts__heading {
+  font-size: clamp(48px, 7vw, var(--text-display));
+  font-weight: 800;
+  line-height: var(--leading-tight);
+  letter-spacing: -0.01em;
+  margin: 0 0 24px;
+}
+
+.fun-facts__intro-block {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Rhythm lives here, not on the heading/intro above: more space above each
+   block than below its own subheading, so the page reads as grouped beats
+   rather than an even stream of content. */
+.fun-facts__block {
+  margin-top: var(--block-gap);
+}
+
+.fun-facts__subheading {
+  font-size: clamp(22px, 2.4vw, 28px);
+  font-weight: 700;
+  letter-spacing: -0.005em;
+  margin: 0 0 var(--subheading-gap);
+}
+
+.fun-facts__text {
+  max-width: 68ch;
+  font-size: var(--text-body-lg);
+  line-height: var(--leading-relaxed);
+  color: var(--text-primary-95);
+  margin: 0;
+}
+
+.fun-facts__block .media-row {
+  margin-top: 28px;
+}
+
+/* "More Socials" reads as an afterthought next to the media rows above it
+   — centered and scaled up (~1.5x the base link/icon size) to give it
+   comparable visual weight, while staying smaller than the movie/album
+   art above. */
+.fun-facts__block--socials {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.fun-facts__more-socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 32px;
+}
+
+.fun-facts__more-social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 27px;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--border-strong);
+  transition: text-decoration-color var(--duration-base) ease;
+}
+
+.fun-facts__more-social-link:hover {
+  text-decoration-color: var(--text-primary);
+}
+
+.fun-facts__more-social-link svg {
+  width: 33px;
+  height: 33px;
+  flex-shrink: 0;
+}
+
+@media (max-width: 900px) {
+  .fun-facts__block {
+    margin-top: var(--block-gap-mobile);
+  }
+}

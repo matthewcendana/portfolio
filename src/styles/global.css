@@ -1,0 +1,121 @@
+@import './fonts.css';
+@import './tokens.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  /* Matches body's own background: overscroll bounce (macOS trackpad,
+     iOS Safari rubber-banding) scrolls past the document edge and reveals
+     whatever's behind/above the sticky nav, which is the *html* canvas,
+     not body's box. Leaving this unset showed the browser's default
+     background there instead of the page's navy. */
+  background-color: var(--surface-base);
+  /* Belt-and-suspenders alongside the background match above: stops the
+     bounce itself, so there's nothing to reveal in the first place. */
+  overscroll-behavior-y: none;
+}
+
+body {
+  background-color: var(--surface-base);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  font-weight: 400;
+  min-height: 100vh;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+/* Visible keyboard focus everywhere */
+:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  background: var(--text-primary);
+  color: var(--text-on-bubble);
+  padding: 12px 20px;
+  border-radius: 0 0 var(--radius-md) 0;
+  font-weight: 600;
+}
+
+.skip-link:focus {
+  left: 0;
+}
+
+/* Every section on the scrollable page (About Me, Projects, Fun Facts)
+   shares this — the anchor/scroll-spy offset, and the content container
+   itself (width, max-width, horizontal centering, vertical rhythm), so no
+   section defines its own copy of any of it. */
+.page-section {
+  scroll-margin-top: var(--nav-height);
+  width: 100%;
+  max-width: var(--content-max-width);
+  margin: 0 auto;
+  padding: var(--section-padding-y) var(--section-padding-x);
+}
+
+@media (max-width: 900px) {
+  .page-section {
+    padding: var(--section-padding-y-mobile) var(--section-padding-x-mobile);
+  }
+}
+
+/* Deliberately NOT a blanket `*` rule: that silenced CSS transitions
+   indiscriminately, including functional ones (e.g. the database selector's
+   chevron rotation) that must keep animating under reduced motion. Motion
+   (JS) animations are unaffected either way — they don't use CSS
+   transitions — and are governed per-component via the hooks in
+   config/motion.ts. Only scroll-behavior is safe to blanket-disable: it
+   never carries state/progress information. Any other reduced-motion CSS
+   override belongs next to the specific selector it affects (see
+   DatabaseSelector.css for the one purely-CSS decorative transform still
+   in the site). */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto !important;
+  }
+}

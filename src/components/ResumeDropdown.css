@@ -1,0 +1,204 @@
+.resume-dropdown {
+  width: 100%;
+}
+
+.resume-dropdown__trigger {
+  appearance: none;
+  -webkit-appearance: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  height: 64px;
+  background-color: var(--text-primary);
+  color: var(--text-on-light);
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0 30px;
+  font-family: var(--font-sans);
+  font-size: clamp(20px, 2.4vw, 26px);
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.25), 0 8px 20px rgba(0, 0, 0, 0.15);
+  transition: transform var(--duration-base) var(--ease-out-expo), box-shadow var(--duration-base) var(--ease-out-expo);
+}
+
+.resume-dropdown__trigger:hover,
+.resume-dropdown__trigger[aria-expanded='true'] {
+  transform: translateY(-2px);
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.4), 0 12px 24px rgba(0, 0, 0, 0.2);
+  filter: brightness(1.03);
+}
+
+/* Hover lift is decorative; the chevron's rotation below is functional
+   (state of the panel) and intentionally not touched here. */
+@media (prefers-reduced-motion: reduce) {
+  .resume-dropdown__trigger:hover,
+  .resume-dropdown__trigger[aria-expanded='true'] {
+    transform: none;
+  }
+}
+
+.resume-dropdown__trigger:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+.resume-dropdown__chevron {
+  display: flex;
+  flex-shrink: 0;
+  transition: transform var(--duration-base) ease;
+}
+
+.resume-dropdown__trigger[aria-expanded='true'] .resume-dropdown__chevron {
+  transform: rotate(180deg);
+}
+
+/* The animating shell: height and its CSS transition are both set inline
+   (see ResumeDropdown.tsx — the transition string comes from
+   useDisclosureTransitionCss, the timing stays centralized in
+   config/motion.ts even though this isn't a Motion-driven animation).
+   overflow-anchor stays at its default ("auto") on purpose: the trigger
+   button sits *before* this panel in normal flow, so the browser's
+   scroll-anchoring already keeps it visually still as the panel
+   grows/shrinks below it — nothing here disables that. */
+.resume-dropdown__panel {
+  width: 100%;
+  overflow-anchor: auto;
+}
+
+.resume-dropdown__panel-inner {
+  padding-top: 20px;
+}
+
+/* One solid card — #2A2450 fill, 24px radius — matching the site's other
+   surfaces (see --surface-card in tokens.css). The header and preview
+   below are sections of this one card, not separately-colored pieces. */
+.resume-dropdown__card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.resume-dropdown__panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  text-decoration: none;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-sm);
+  font-weight: 600;
+  transition: background-color var(--duration-base) ease;
+}
+
+.resume-dropdown__panel-header:hover {
+  background: var(--surface-card-hover);
+}
+
+.resume-dropdown__panel-header:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: -3px;
+}
+
+.resume-dropdown__panel-header-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--text-primary-70);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.resume-dropdown__preview {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* ~620x800px (8.5:11, letter paper) — the width formula caps the box at
+   620px, at 100% of its container, AND at whatever width keeps the
+   proportional height under 70vh, so aspect-ratio never has to fight a
+   separately-set max-height. The literal max-height below is a
+   belt-and-suspenders backstop, not the primary mechanism. */
+.resume-dropdown__preview-frame {
+  position: relative;
+  width: min(620px, 100%, calc(70vh * 8.5 / 11));
+  aspect-ratio: 8.5 / 11;
+  max-height: 70vh;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.resume-dropdown__iframe {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: var(--text-primary);
+}
+
+.resume-dropdown__fallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 180px;
+  padding: 32px 24px;
+  background: var(--surface-panel);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  color: var(--text-primary);
+  text-decoration: none;
+  text-align: center;
+  transition: border-color var(--duration-base) ease, background-color var(--duration-base) ease;
+}
+
+.resume-dropdown__fallback:hover {
+  border-color: var(--border-strong);
+  background: var(--surface-card-hover);
+}
+
+.resume-dropdown__fallback:focus-visible {
+  outline: 3px solid var(--focus-ring);
+  outline-offset: 3px;
+}
+
+/* The always-present layer behind the desktop iframe (see the edge-case
+   note in ResumeDropdown.tsx) — filling the exact same box the iframe
+   occupies, sitting behind it at z-index: 0. */
+.resume-dropdown__fallback--behind {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  min-height: 0;
+  border-radius: var(--radius-lg);
+}
+
+.resume-dropdown__fallback-label {
+  font-size: var(--text-body-md);
+  font-weight: 700;
+}
+
+.resume-dropdown__fallback-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-mono);
+  font-size: var(--text-mono-sm);
+  color: var(--text-primary-70);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resume-dropdown__fallback,
+  .resume-dropdown__panel-header {
+    transition: none;
+  }
+}

@@ -1,0 +1,161 @@
+/*
+ * Design tokens extracted from Stitch (source of truth for all visual values):
+ *   - Matthew - Portfolio Landing Page (Data Infrastructure Theme)
+ *   - Matthew - Querying About Me Loading Screen
+ *   - Matthew - Portfolio About Me Page (Data Infrastructure Theme)
+ * Named by role, not by value. No hex codes should appear outside this file.
+ */
+
+:root {
+  /* ---- Color: surfaces ---- */
+  --surface-base: #1e1a3c;
+  --surface-card: #2a2450;
+  --surface-panel: #231e44;
+  --surface-photo: #16132e;
+  /* Persistent header: translucent dark bar (bg-[#120e30]/80) sitting over
+     the page's own background-art layer, not an opaque bar. */
+  --surface-nav: rgba(18, 14, 48, 0.8);
+  --surface-bubble: #d9d9d9;
+  /* Active/hover nav pill fill — a soft white wash, not a solid block. */
+  --surface-pill-active: rgba(255, 255, 255, 0.1);
+  --surface-translucent: rgba(255, 255, 255, 0.02);
+  --surface-translucent-strong: rgba(255, 255, 255, 0.05);
+  --surface-chip: rgba(0, 0, 0, 0.4);
+  --surface-pill: rgba(255, 255, 255, 0.08);
+  --surface-overlay-scrim: rgba(10, 8, 24, 0.85);
+  --surface-project-fallback: #241f45;
+  --surface-card-hover: #332b5e;
+  --surface-editor-bezel: #0c0a1a;
+  --surface-editor: #130f2b;
+  --surface-editor-titlebar: #181435;
+  --surface-editor-statusbar: #0e0b21;
+  --surface-editor-glow: rgba(99, 102, 241, 0.15);
+  --surface-editor-notch: #1e1a38;
+  --surface-editor-notch-dot: #05040a;
+  --surface-editor-shelf-top: #2a264a;
+  --surface-editor-shelf-bottom: #171333;
+  --surface-editor-shelf-groove: #0e0c20;
+  --surface-dropdown: rgba(24, 21, 48, 0.95);
+  --surface-panel-right: #292648;
+
+  /* ---- Color: text ---- */
+  --text-primary: #ffffff;
+  --text-primary-95: rgba(255, 255, 255, 0.95);
+  --text-primary-90: rgba(255, 255, 255, 0.9);
+  --text-primary-85: rgba(255, 255, 255, 0.85);
+  --text-primary-80: rgba(255, 255, 255, 0.8);
+  --text-primary-70: rgba(255, 255, 255, 0.7);
+  --text-primary-60: rgba(255, 255, 255, 0.6);
+  --text-primary-40: rgba(255, 255, 255, 0.4);
+  --text-primary-25: rgba(255, 255, 255, 0.25);
+  --text-primary-20: rgba(255, 255, 255, 0.2);
+  --text-muted: #4a4a5a;
+  --text-on-light: #111111;
+  --text-on-bubble: #1e1a3c;
+  /* Inactive nav link/wordmark-hover tone vs. solid-white active/hover text. */
+  --text-on-nav: rgba(255, 255, 255, 0.8);
+  --text-on-nav-active: #ffffff;
+
+  /* ---- Color: accent ---- */
+  --accent-violet: #8677f6;
+  --accent-violet-70: rgba(134, 119, 246, 0.7);
+  --accent-lavender: #c7bfff;  /* SQL tab badge */
+  --accent-keyword: #b5abff;   /* SELECT / FROM keyword */
+  --accent-green: #86efac;     /* wildcard * */
+  --accent-cyan: #79d7ed;      /* table identifier */
+
+  /* ---- Color: status ---- */
+  --status-ready: #34d399;
+  --status-active: #fbbf24;
+  --status-traffic-red: rgba(255, 95, 86, 0.8);
+  --status-traffic-yellow: rgba(255, 189, 46, 0.8);
+  --status-traffic-green: rgba(39, 201, 63, 0.8);
+
+  /* ---- Color: borders / focus ---- */
+  --border-subtle: rgba(255, 255, 255, 0.1);
+  --border-faint: rgba(255, 255, 255, 0.15);
+  --border-default: rgba(255, 255, 255, 0.18);
+  --border-strong: rgba(255, 255, 255, 0.3);
+  --border-stronger: rgba(255, 255, 255, 0.5);
+  --border-nav-divider: rgba(255, 255, 255, 0.2);
+  --focus-ring: rgba(255, 255, 255, 0.3);
+
+  /* ---- Typography ---- */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --text-display: 96px;       /* About Me h1 */
+  --text-hero: 80px;          /* Landing h1 */
+  --text-heading-lg: 64px;    /* Querying transition h1 */
+  --text-heading-md: 38px;    /* Section h2 */
+  --text-heading-sm: 26px;    /* Card h3 */
+  --text-body-lg: 22px;
+  --text-body-md: 18px;
+  --text-nav-link: 34px;
+  --text-wordmark: 34px;
+  --text-button: 40px;
+  --text-selector: 26px;
+  --text-mono-lg: 38px;       /* Speech bubble query text */
+  --text-mono-sm: 14px;
+  --text-mono-xs: 12px;
+  --text-editor-lg: 20px;     /* Editor active-line text, desktop */
+
+  --leading-tight: 1.02;
+  --leading-snug: 1.08;
+  --leading-normal: 1.12;
+  --leading-relaxed: 1.65;
+
+  /* ---- Radius ---- */
+  --radius-full: 9999px;
+  --radius-xl: 24px;
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --radius-sm: 2px;
+
+  /* ---- Layout ---- */
+  /* Persistent header, present on every route including "/". Fixed px, not
+     rem/vw: must occupy identical pixel dimensions regardless of the
+     browser's default font-size preference (zoom is exempt — it scales
+     everything by design). 104px = 56px logo tile + 24px vertical padding
+     on each side, matching the synced Stitch header. */
+  --nav-height: 104px;
+  --content-max-width: 1500px;
+
+  /* ---- Layout: vertical rhythm ---- */
+  /* Every section on the scrollable page (see .page-section in global.css)
+     shares this padding, so the gap between any two adjacent sections is
+     identical everywhere — never a one-off margin on a single section. */
+  --section-padding-y: 120px;
+  --section-padding-y-mobile: 64px;
+  --section-padding-x: 40px;
+  --section-padding-x-mobile: 24px;
+  /* The closing beat (SignOff) isn't a full section, so it intentionally
+     reads lighter than --section-padding-y — still a named token, not a
+     magic number. */
+  --signoff-padding-y: 96px;
+  --signoff-padding-y-mobile: 56px;
+  /* A subheaded content block (e.g. Fun Facts' "Favorite Movies"): more
+     space above the block than below its own subheading, so a run of
+     blocks reads as grouped beats rather than an even stream. */
+  --block-gap: 64px;
+  --block-gap-mobile: 48px;
+  --subheading-gap: 14px;
+
+  /* ---- Motion ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --duration-fast: 0.15s;
+  --duration-base: 0.2s;
+  --duration-slow: 0.3s;
+
+  /* ---- Background line-work (BackgroundArt) ----
+     Faint data-infrastructure motif shared by the landing page, querying
+     screen, and sections page. Kept low-contrast on purpose — it must
+     never compete with foreground text. */
+  --bg-art-glow-violet: rgba(78, 63, 140, 0.18);
+  --bg-art-glow-green: rgba(56, 239, 125, 0.08);
+  --bg-art-glow-violet-soft: rgba(109, 93, 187, 0.12);
+  --bg-art-grid-color: rgba(255, 255, 255, 0.5);
+  --bg-art-connector: rgba(139, 123, 201, 0.4);
+  --bg-art-node: #38ef7d;
+  --bg-art-glyph: rgba(255, 255, 255, 0.12);
+}

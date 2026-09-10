@@ -1,0 +1,113 @@
+.querying-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  background: linear-gradient(to right, var(--surface-base) 50%, var(--surface-panel-right) 50%);
+  overflow-y: auto;
+  /* Opacity is animated by Motion (variants) — no CSS transition here to
+     avoid two systems fighting over the same property. */
+}
+
+.querying-screen__left,
+.querying-screen__right {
+  flex: 1 1 50%;
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.querying-screen__left {
+  justify-content: flex-start;
+  padding: 5vw 5vw 5vw 6vw;
+}
+
+.querying-screen__right {
+  flex-direction: column;
+  justify-content: center;
+  padding: 5vw;
+}
+
+.querying-screen__heading {
+  max-width: 560px;
+  font-size: clamp(36px, 6vw, var(--text-heading-lg));
+  font-weight: 400;
+  line-height: var(--leading-normal);
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.querying-screen__progress {
+  width: 400px;
+  max-width: 100%;
+  height: 4px;
+  margin-top: 28px;
+  background: var(--text-primary-20);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.querying-screen__progress-fill {
+  width: 100%;
+  height: 100%;
+  background: var(--text-primary);
+  border-radius: var(--radius-full);
+  transform: scaleX(0);
+  transform-origin: left;
+  /* scaleX is animated by Motion (transform, not width, so it never
+     triggers layout) — the collapsed default above is what paints before
+     Motion's effect ever runs, so there's no flash of a full-width bar on
+     first paint. No CSS transition here; Motion drives the transform. */
+}
+
+/* Syntax highlighting for the typed-in query lines. */
+.qs-kw {
+  color: var(--accent-keyword);
+  font-weight: 700;
+}
+
+.qs-star {
+  color: var(--accent-green);
+  font-weight: 600;
+}
+
+.qs-id {
+  color: var(--accent-cyan);
+}
+
+.qs-semi {
+  color: var(--text-primary-70);
+}
+
+@media (max-width: 900px) {
+  .querying-screen {
+    background: var(--surface-base);
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .querying-screen__left,
+  .querying-screen__right {
+    min-height: 0;
+    width: 100%;
+    flex: none;
+  }
+
+  .querying-screen__left {
+    order: 1;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 10vw 8vw 6vw;
+  }
+
+  .querying-screen__right {
+    order: 0;
+    padding: 8vw 6vw 4vw;
+  }
+
+  .querying-screen__heading {
+    max-width: 100%;
+  }
+}
