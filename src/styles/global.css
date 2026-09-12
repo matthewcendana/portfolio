@@ -28,6 +28,17 @@ html {
 
 body {
   background-color: var(--surface-base);
+  /* Giving `html` its own background (above) stopped the browser from
+     promoting body's background to serve as the page canvas, which is
+     what used to keep it painting *behind* negative-z-index descendants
+     like .bg-art (BackgroundArt) for free. Once body's background became
+     a normal in-flow block background instead, it started painting ON
+     TOP of them, hiding the whole layer completely — not just dimming it.
+     `isolation` makes body its own stacking-context root again
+     explicitly, independent of html, so .bg-art's z-index: -1 is scoped
+     to sit above *body's* background specifically, regardless of
+     whatever html itself does for the overscroll-bounce fix. */
+  isolation: isolate;
   color: var(--text-primary);
   font-family: var(--font-sans);
   font-weight: 400;
